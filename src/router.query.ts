@@ -20,10 +20,10 @@ export class RouterQuery extends Query<RouterState> {
     super(store);
   }
 
-  selectParams<T>(names: string): Observable<T>;
-  selectParams<T>(names: string[]): Observable<T[]>;
-  selectParams<T>(): Observable<HashMap<T>>;
-  selectParams<T>(names?: string | string[]): Observable<T | T[] | HashMap<T>> {
+  selectParams<T = string>(names: string): Observable<T>;
+  selectParams<T = string>(names: string[]): Observable<T[]>;
+  selectParams<T = string>(): Observable<HashMap<T>>;
+  selectParams<T = string>(names?: string | string[]): Observable<T | T[] | HashMap<T>> {
     if (names === undefined) {
       return this.select().pipe(slice('params'), distinctUntilChanged());
     }
@@ -43,10 +43,10 @@ export class RouterQuery extends Query<RouterState> {
     return select(names).pipe(distinctUntilChanged());
   }
 
-  getParams<T>(): HashMap<T>;
-  getParams<T>(name: string): T;
-  getParams<T>(name?: string): T | HashMap<any> | null {
-    if (this.getValue().state) {
+  getParams<T = string>(): HashMap<T>;
+  getParams<T = string>(name: string): T;
+  getParams<T = string>(name?: string): T | HashMap<any> | null {
+  if (this.getValue().state) {
       const params = this.getValue().state!.root.params;
       if (name === undefined) {
         return params;
@@ -58,10 +58,10 @@ export class RouterQuery extends Query<RouterState> {
     return null;
   }
 
-  selectQueryParams<T>(names: string): Observable<T>;
-  selectQueryParams<T>(names: string[]): Observable<T[]>;
-  selectQueryParams<T>(): Observable<HashMap<T>>;
-  selectQueryParams<T>(names?: string | string[]): Observable<T | T[] | HashMap<T>> {
+  selectQueryParams<T = string>(names: string): Observable<T>;
+  selectQueryParams<T = string>(names: string[]): Observable<T[]>;
+  selectQueryParams<T = string>(): Observable<HashMap<T>>;
+  selectQueryParams<T = string>(names?: string | string[]): Observable<T | T[] | HashMap<T>> {
     if (names === undefined) {
       return this.select().pipe(slice('queryParams'), distinctUntilChanged());
     }
@@ -81,9 +81,9 @@ export class RouterQuery extends Query<RouterState> {
     return select(names);
   }
 
-  getQueryParams<T>(name: string): T;
-  getQueryParams<T>(): HashMap<T>;
-  getQueryParams<T>(name?: string): T | HashMap<T> | null {
+  getQueryParams<T = string>(name: string): T;
+  getQueryParams<T = string>(): HashMap<T>;
+  getQueryParams<T = string>(name?: string): T | HashMap<T> | null {
     if (this.getValue().state) {
       const params = this.getValue().state!.root.queryParams;
       if (name === undefined) {
@@ -108,9 +108,9 @@ export class RouterQuery extends Query<RouterState> {
     return null;
   }
 
-  selectData<T>(name: string): Observable<T>;
-  selectData<T>(): Observable<HashMap<T>>;
-  selectData<T>(name?: string): Observable<T | HashMap<T>> {
+  selectData<T = string>(name: string): Observable<T>;
+  selectData<T = string>(): Observable<HashMap<T>>;
+  selectData<T = string>(name?: string): Observable<T | HashMap<T>> {
     if (name === undefined) {
       return this.select().pipe(slice('data'), distinctUntilChanged());
     }
@@ -122,7 +122,7 @@ export class RouterQuery extends Query<RouterState> {
     );
   }
 
-  getData<T>(name: string): T | null;
+  getData<T = string>(name: string): T | null;
   getData<T>(): Data | null;
   getData<T>(name?: string): Data | null {
     if (this.getValue().state) {
